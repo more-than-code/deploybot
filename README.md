@@ -72,7 +72,3 @@ Open an issue in the repo of the component it concerns. If you are not sure whic
 ## License
 
 This repository is under the Apache License 2.0. See [LICENSE](LICENSE). Each component has its own licence, listed in the table above.
-
-## Earlier projects
-
-This repository used to describe an earlier CI/CD tool set also called DeployBot (web console, API, builder and launcher services). Those repos are archived and are not part of the current Deploybot.
