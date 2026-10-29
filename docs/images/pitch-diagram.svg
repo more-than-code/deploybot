@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 496" role="img" aria-labelledby="t d" font-family="Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif">
+  <title id="t">How Deploybot lets AI agents run your servers</title>
+  <desc id="d">People use the web console in a browser. Any MCP client, such as a coding agent, a chat app or your own script, connects to Deploybot over MCP, signed in as you. Deploybot acts with your project role, runs only what your catalog allows, and asks for a confirm step. Deploybot itself is hosted or self-hosted. Your servers run bot-agent, which dials out to Deploybot, so no ports are open. The agent never gets SSH keys or cloud tokens for the servers.</desc>
+  <style>
+    .bg { fill: #f8fafd; }
+    .card { fill: #ffffff; stroke: #d5dde6; }
+    .ink { fill: #171d26; }
+    .muted { fill: #5c6774; }
+    .primary { fill: #2f509c; }
+    .on-primary { fill: #ffffff; }
+    .soft { fill: #e6ebf2; }
+    .line { stroke: #2f509c; fill: none; }
+    .blocked { stroke: #b42318; fill: none; }
+    .blocked-text { fill: #b42318; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0f1419; }
+      .card { fill: #171d26; stroke: #2e3a4a; }
+      .ink { fill: #e6ebf2; }
+      .muted { fill: #9aa6b4; }
+      .primary { fill: #4a6fc4; }
+      .soft { fill: #1f2b40; }
+      .line { stroke: #7f9fe0; }
+      .blocked { stroke: #f07167; }
+      .blocked-text { fill: #f07167; }
+    }
+  </style>
+  <!-- Icons: Lucide 1.23.0 (https://lucide.dev), ISC licence, Copyright (c) Lucide Contributors. -->
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" class="primary"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" width="960" height="496" rx="20"/>
+
+  <!-- People -->
+  <text class="muted" x="40" y="52" font-size="13" font-weight="600" letter-spacing="1.2">PEOPLE</text>
+  <rect class="card" x="40" y="64" width="200" height="52" rx="12" stroke-width="1.5"/>
+  <g class="line" transform="translate(58 72) scale(0.8333)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M10 4v4"/><path d="M2 8h20"/><path d="M6 4v4"/></g>
+  <text class="ink" x="86" y="87" font-size="16" font-weight="600">Web console</text>
+  <text class="muted" x="86" y="105" font-size="12">in your browser</text>
+
+  <!-- AI agents -->
+  <text class="muted" x="40" y="148" font-size="13" font-weight="600" letter-spacing="1.2">AI AGENTS</text>
+  <rect class="card" x="40" y="160" width="200" height="148" rx="16" stroke-width="1.5"/>
+  <g class="line" transform="translate(58 176) scale(0.8333)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></g>
+  <text class="ink" x="86" y="192" font-size="16" font-weight="600">Any MCP client</text>
+  <g font-size="14">
+    <circle class="primary" cx="66" cy="221" r="3.5"/>
+    <text class="muted" x="80" y="226">coding agents</text>
+    <circle class="primary" cx="66" cy="249" r="3.5"/>
+    <text class="muted" x="80" y="254">chat apps</text>
+    <circle class="primary" cx="66" cy="277" r="3.5"/>
+    <text class="muted" x="80" y="282">your own scripts</text>
+  </g>
+
+  <!-- People and agents to Deploybot -->
+  <path class="line" d="M244 90 C300 90 300 136 348 136" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <text class="muted" x="296" y="80" font-size="12" text-anchor="middle">sign in</text>
+  <path class="line" d="M244 234 C300 234 300 216 348 216" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <text class="muted" x="296" y="254" font-size="12" text-anchor="middle">MCP, as you</text>
+
+  <!-- Deploybot -->
+  <rect class="card" x="352" y="40" width="256" height="252" rx="16" stroke-width="1.5"/>
+  <path class="primary" d="M352 56 a16 16 0 0 1 16 -16 h224 a16 16 0 0 1 16 16 v44 h-256 z"/>
+  <text class="on-primary" x="480" y="66" font-size="18" font-weight="700" text-anchor="middle">Deploybot</text>
+  <text class="on-primary" x="480" y="87" font-size="13" font-weight="500" text-anchor="middle">Hosted or self-hosted</text>
+  <g>
+    <rect class="soft" x="366" y="116" width="228" height="50" rx="10"/>
+    <g class="line" transform="translate(378 131) scale(0.8333)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></g>
+    <text class="ink" x="410" y="138" font-size="15" font-weight="600">1 · Acts as you</text>
+    <text class="muted" x="410" y="156" font-size="12">Your project role, no more</text>
+    <rect class="soft" x="366" y="174" width="228" height="50" rx="10"/>
+    <g class="line" transform="translate(378 189) scale(0.8333)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></g>
+    <text class="ink" x="410" y="196" font-size="15" font-weight="600">2 · Catalog only</text>
+    <text class="muted" x="410" y="214" font-size="12">Approved programs, images</text>
+    <rect class="soft" x="366" y="232" width="228" height="50" rx="10"/>
+    <g class="line" transform="translate(378 247) scale(0.8333)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></g>
+    <text class="ink" x="410" y="254" font-size="15" font-weight="600">3 · Confirm step</text>
+    <text class="muted" x="410" y="272" font-size="12">Plan first, then you confirm</text>
+  </g>
+
+  <!-- Servers -->
+  <text class="muted" x="720" y="52" font-size="13" font-weight="600" letter-spacing="1.2">YOUR SERVERS</text>
+  <g>
+    <rect class="card" x="720" y="64" width="200" height="44" rx="12" stroke-width="1.5"/>
+    <g class="line" transform="translate(734 76) scale(0.8333)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20v2"/><path d="M12 2v2"/><path d="M17 20v2"/><path d="M17 2v2"/><path d="M2 12h2"/><path d="M2 17h2"/><path d="M2 7h2"/><path d="M20 12h2"/><path d="M20 17h2"/><path d="M20 7h2"/><path d="M7 20v2"/><path d="M7 2v2"/><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="8" y="8" width="8" height="8" rx="1"/></g>
+    <text class="ink" x="764" y="84" font-size="15" font-weight="600">Raspberry Pi</text>
+    <text class="muted" x="764" y="100" font-size="12">home lab</text>
+    <rect class="card" x="720" y="114" width="200" height="44" rx="12" stroke-width="1.5"/>
+    <g class="line" transform="translate(734 126) scale(0.8333)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 16h.01"/><path d="M2.212 11.577a2 2 0 0 0-.212.896V18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-5.527a2 2 0 0 0-.212-.896L18.55 5.11A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/><path d="M21.946 12.013H2.054"/><path d="M6 16h.01"/></g>
+    <text class="ink" x="764" y="134" font-size="15" font-weight="600">Mac mini</text>
+    <text class="muted" x="764" y="150" font-size="12">on your desk</text>
+    <rect class="card" x="720" y="164" width="200" height="44" rx="12" stroke-width="1.5"/>
+    <g class="line" transform="translate(734 176) scale(0.8333)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="8" x="2" y="2" rx="2" ry="2"/><rect width="20" height="8" x="2" y="14" rx="2" ry="2"/><line x1="6" x2="6.01" y1="6" y2="6"/><line x1="6" x2="6.01" y1="18" y2="18"/></g>
+    <text class="ink" x="764" y="184" font-size="15" font-weight="600">VPS</text>
+    <text class="muted" x="764" y="200" font-size="12">any provider</text>
+    <rect class="card" x="720" y="214" width="200" height="44" rx="12" stroke-width="1.5"/>
+    <g class="line" transform="translate(734 226) scale(0.8333)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></g>
+    <text class="ink" x="764" y="234" font-size="15" font-weight="600">Cloud VM</text>
+    <text class="muted" x="764" y="250" font-size="12">behind NAT is fine</text>
+  </g>
+
+  <text class="muted" x="720" y="276" font-size="12">Each runs bot-agent</text>
+
+  <!-- Servers dial out to Deploybot -->
+  <path class="line" d="M716 86 C668 86 660 160 614 160" stroke-width="2" marker-end="url(#arrow)"/>
+  <path class="line" d="M716 136 C668 136 660 164 614 164" stroke-width="2" marker-end="url(#arrow)"/>
+  <path class="line" d="M716 186 C668 186 660 168 614 168" stroke-width="2" marker-end="url(#arrow)"/>
+  <path class="line" d="M716 236 C668 236 660 172 614 172" stroke-width="2" marker-end="url(#arrow)"/>
+  <text class="muted" x="664" y="288" font-size="12" text-anchor="middle">Hosts dial out.</text>
+  <text class="muted" x="664" y="304" font-size="12" text-anchor="middle">No open ports.</text>
+
+  <!-- Blocked direct path -->
+  <path class="blocked" d="M140 312 C140 440 880 440 880 262" stroke-width="2" stroke-dasharray="7 6"/>
+  <circle class="bg" cx="510" cy="399" r="17"/>
+  <circle class="blocked" cx="510" cy="399" r="15" stroke-width="2.5"/>
+  <path class="blocked" d="M503 392 L517 406 M517 392 L503 406" stroke-width="2.5" stroke-linecap="round"/>
+  <text class="blocked-text" x="510" y="442" font-size="14" font-weight="600" text-anchor="middle">No SSH keys or cloud tokens for the agent</text>
+  <text class="muted" x="510" y="464" font-size="12" text-anchor="middle">Anything outside the catalog is refused</text>
+
+</svg>

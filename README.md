@@ -4,6 +4,10 @@ Let any AI agent that speaks MCP run your own servers, without handing it SSH ke
 
 Deploybot is a control plane for your own hosts: Raspberry Pis, mini PCs, VPSs and cloud VMs. A small agent on each host dials out to the Deploybot API, so hosts open no inbound ports and can sit behind NAT. Use the hosted service at [deploybot.dev](https://deploybot.dev), or run it yourself from this source.
 
+<p align="center">
+  <img src="docs/images/pitch-diagram.svg" width="960" alt="People use the web console and AI agents connect over MCP as you. Deploybot acts with your project role, runs only catalog entries, and asks for a confirm step. Your servers run bot-agent and dial out, so no ports are open and the agent never gets SSH keys or cloud tokens.">
+</p>
+
 ## How it keeps AI agents safe
 
 - **Acts as you.** An MCP client signs in as you and gets your role in each project, no more.
@@ -12,6 +16,16 @@ Deploybot is a control plane for your own hosts: Raspberry Pis, mini PCs, VPSs a
 - **Hosts dial out.** No open ports, and no SSH keys or cloud tokens for the agent.
 - **Each host's own allowlist** of images and projects, root-owned on the host, which the server cannot change.
 - **Secrets** are encrypted at rest and write-only for people. Changes are recorded in an audit log.
+
+## Three ways to let AI run your servers
+
+| | AI in a terminal (SSH) | AI with your cloud tokens | Deploybot |
+|---|---|---|---|
+| What the AI can do | Any shell command | Anything the token allows | Only your catalog |
+| Safeguard | Approving each command | Hoping the agent behaves | Limited by design: acts as you, confirm step |
+| Ports and keys | SSH open, keys on a laptop | Long-lived token in a file | Hosts dial out, no keys for the AI |
+| When nobody is watching | Nothing runs | Nothing runs | Health checks, automatic rollback |
+| Best for | Debugging one box | Throwaway projects | Running production, teams |
 
 ## What else it does
 
