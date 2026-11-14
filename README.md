@@ -44,7 +44,7 @@ Deploybot is a control plane for your own hosts: Raspberry Pis, mini PCs, VPSs a
    claude mcp add --transport http deploybot https://mcp.deploybot.dev/mcp
    ```
 
-   Any MCP client with Streamable HTTP and OAuth connects the same way. See the [bot-mcp-server README](https://github.com/more-than-code/bot-mcp-server/blob/dev/README.md) for the tools and for `deploybot login` on machines without a browser.
+   Any MCP client with Streamable HTTP and OAuth connects the same way. See the [MCP README](https://github.com/more-than-code/bot-control-plane/blob/main/mcp/README.md) for the tools and for `deploybot login` on machines without a browser.
 
 AI agents can read [deploybot.dev/llms.txt](https://deploybot.dev/llms.txt) for a summary written for them.
 
@@ -53,17 +53,15 @@ AI agents can read [deploybot.dev/llms.txt](https://deploybot.dev/llms.txt) for 
 | Component | What it does | Built with | Licence |
 |---|---|---|---|
 | [bot-agent](https://github.com/more-than-code/bot-agent) | Runs on each host, dials out, deploys catalog entries and reports metrics and health | Go, one static binary; Linux amd64/arm64, systemd | Apache-2.0 |
-| [bot-api-server](https://github.com/more-than-code/bot-api-server) | Users, projects, roles, catalog, deploys, audit; the only part that writes the database | Go, PostgreSQL with TimescaleDB | AGPL-3.0-only |
-| [bot-mcp-server](https://github.com/more-than-code/bot-mcp-server) | Stateless MCP endpoint for AI agents, acting as the signed-in user | Go, MCP over Streamable HTTP | AGPL-3.0-only |
-| [bot-console](https://github.com/more-than-code/bot-console) | The web console | SvelteKit | AGPL-3.0-only |
+| [bot-control-plane](https://github.com/more-than-code/bot-control-plane) | The server side, released as one: the API ([`api/`](https://github.com/more-than-code/bot-control-plane/tree/main/api); users, projects, roles, catalog, deploys, audit; the only part that writes the database), the MCP endpoint for AI agents ([`mcp/`](https://github.com/more-than-code/bot-control-plane/tree/main/mcp)) and the web console ([`console/`](https://github.com/more-than-code/bot-control-plane/tree/main/console)) | Go, PostgreSQL with TimescaleDB; SvelteKit | AGPL-3.0-only |
 
 Development happens on the `dev` branch of each repo.
 
 ## Self-hosting
 
-You need a Linux server, PostgreSQL with TimescaleDB, a Google OAuth client, and a reverse proxy for TLS. Each component's README describes how to build, configure and run it, starting with [bot-api-server](https://github.com/more-than-code/bot-api-server/blob/dev/README.md).
+You need a Linux server, PostgreSQL with TimescaleDB, a Google OAuth client, and a reverse proxy for TLS. The [bot-control-plane README](https://github.com/more-than-code/bot-control-plane/blob/main/README.md) describes how to build, configure and run the server side, and bot-agent's [install guide](https://github.com/more-than-code/bot-agent/blob/main/docs/install.md) covers the hosts.
 
-The contracts between the parts are public too: the [API](https://github.com/more-than-code/bot-api-server/blob/dev/docs/contracts/api-v1.md), [OAuth](https://github.com/more-than-code/bot-api-server/blob/dev/docs/contracts/oauth-v1.md) and [agent protocol](https://github.com/more-than-code/bot-agent/blob/dev/docs/contracts/agent-protocol-v1.md) contracts.
+The contracts between the parts are public too: the [API](https://github.com/more-than-code/bot-control-plane/blob/main/docs/contracts/api-v1.md), [OAuth](https://github.com/more-than-code/bot-control-plane/blob/main/docs/contracts/oauth-v1.md) and [agent protocol](https://github.com/more-than-code/bot-agent/blob/dev/docs/contracts/agent-protocol-v1.md) contracts.
 
 ## Issues and questions
 
