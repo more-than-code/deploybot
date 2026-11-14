@@ -31,12 +31,12 @@ Deploybot is a control plane for your own hosts: Raspberry Pis, mini PCs, VPSs a
 
 - **Resilience:** deploys wait for health (Docker health status or HTTP/TCP checks); an unhealthy deploy rolls back to the previous container automatically; one-step rollback to an earlier image digest; a health failure policy per service; programs run as systemd units and survive reboot.
 - **Visibility:** host metrics with history, running processes and discovered services, health check history per service, container logs with secrets redacted and capped at 10 MB × 3 by default.
-- **Teams:** owner, admin and viewer roles per project, invite links that expire, per-entry rights to run, stop, restart or deploy, a host shared with other projects at metrics or deploy level, and one-time join tokens for adding hosts.
+- **Teams:** organizations that own the hosts, with owner, admin and member roles; owner, admin and viewer roles per project; invite links that expire; per-entry rights to run, stop, restart or deploy; per-project access to each host at metrics or deploy level; and one-time join tokens for adding hosts.
 
 ## Get started
 
 1. **Sign in** to the console at [console.deploybot.dev](https://console.deploybot.dev) with Google and create a project.
-2. **Add a host.** Create a join token in the console (Hosts → Add a host), then follow the [install guide](https://github.com/more-than-code/bot-agent/blob/dev/docs/install.md). Hosts are Linux on amd64 or arm64 with systemd; Docker is needed only for container images. An AI coding agent can do the install for you, except for typing the join token.
+2. **Add a host.** As an owner or admin of your organization, create a join token in the console (your organization's Hosts → Add a host), then follow the [install guide](https://github.com/more-than-code/bot-agent/blob/dev/docs/install.md). Hosts are Linux on amd64 or arm64 with systemd; Docker is needed only for container images. An AI coding agent can do the install for you, except for typing the join token.
 3. **Add a catalog entry** for the program or container you want to run, then deploy it from the console.
 4. **Connect your AI agent** to `https://mcp.deploybot.dev/mcp`. For example, with Claude Code:
 
