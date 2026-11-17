@@ -12,10 +12,10 @@ Deploybot is a control plane for your own hosts: Raspberry Pis, mini PCs, VPSs a
 
 - **Acts as you.** An MCP client signs in as you and gets your role in each project, no more.
 - **Catalog only.** Only entries your project approved can run: container images and programs. There are no free-form commands, no shell and no file tools.
-- **Confirm step.** Every change made over MCP first returns a plan. Nothing happens until it is confirmed.
+- **Plan and confirm.** Every change made over MCP first returns a plan. Nothing happens until it is confirmed.
 - **Hosts dial out.** No open ports, and no SSH keys or cloud tokens for the agent.
-- **Each host's own allowlist** of images and projects, root-owned on the host, which the server cannot change.
-- **Secrets** are encrypted at rest and write-only for people. Changes are recorded in an audit log.
+- **Host allowlist.** Each host keeps its own allowlist of images, projects and program commands, root-owned on the host, which the server cannot change.
+- **Secrets never pass through the AI.** When an agent needs a password, a token or a file, it asks for it, and you fill it in on a one-time page in the console. Secrets are encrypted at rest and write-only for people. Changes are recorded in an audit log.
 
 ## Three ways to let AI run your servers
 
@@ -29,9 +29,13 @@ Deploybot is a control plane for your own hosts: Raspberry Pis, mini PCs, VPSs a
 
 ## What else it does
 
-- **Resilience:** deploys wait for health (Docker health status or HTTP/TCP checks); an unhealthy deploy rolls back to the previous container automatically; one-step rollback to an earlier image digest; a health failure policy per service; programs run as systemd units and survive reboot.
-- **Visibility:** host metrics with history, running processes and discovered services, health check history per service, container logs with secrets redacted and capped at 10 MB × 3 by default.
-- **Teams:** organizations that own the hosts, with owner, admin and member roles; owner, admin and viewer roles per project; invite links that expire; per-entry rights to run, stop, restart or deploy; per-project access to each host at metrics or deploy level; and one-time join tokens for adding hosts.
+- **Deploys:** **health-gated deploys** (Docker health status or HTTP/TCP checks), **automatic rollback** to the previous container when a deploy is unhealthy, **digest rollback** to an earlier image in one step, a **health policy** per service, **run, stop and restart**, and **persistent programs** that run as systemd units and survive reboot.
+- **Configuration:** **env sets** shared across entries and **entry secrets** (typed or generated, shown once) for containers and programs; **managed files** and **registry logins** for containers; a **readiness check** before you deploy.
+- **Networking:** **shared networks** let containers from different projects on one host talk, when the host's administrator offers them.
+- **Visibility:** **host metrics** with history, **processes and services** on each host, **health history** per service, and **live logs** with secrets redacted and capped at 10 MB × 3 by default.
+- **Teams:** **organizations** that own the hosts (owner, admin and member roles), **project roles** (owner, admin, viewer), **per-entry rights** to run, stop, restart or deploy, **host access per project** at metrics or deploy level, **invite links** that expire, and one-time **join tokens** for adding hosts.
+- **For AI agents:** an **MCP server with OAuth**, **`deploybot login`** for machines without a browser, [llms.txt](https://deploybot.dev/llms.txt), and a **`whats_new`** tool.
+- **Upkeep:** a **What's new** page in the console, and an **agent update notice** when a host runs an older bot-agent.
 
 ## Get started
 
@@ -49,6 +53,10 @@ Deploybot is a control plane for your own hosts: Raspberry Pis, mini PCs, VPSs a
 AI agents can read [deploybot.dev/llms.txt](https://deploybot.dev/llms.txt) for a summary written for them.
 
 ## Components
+
+<p align="center">
+  <img src="docs/images/components.svg" width="680" alt="People reach the console and AI agents reach the MCP gateway; both go through the API, the only part that writes PostgreSQL, where secrets are encrypted. On each host, bot-agent runs unprivileged and dials out to the API, so no ports are open; a root runner checks the host's own allowlist before running Docker containers or systemd units.">
+</p>
 
 | Component | What it does | Built with | Licence |
 |---|---|---|---|
@@ -70,3 +78,5 @@ Open an issue in the repo of the component it concerns. If you are not sure whic
 ## License
 
 This repository is under the Apache License 2.0. See [LICENSE](LICENSE). Each component has its own licence, listed in the table above.
+
+The Deploybot name and logo are not licensed under any code licence. Forks must use a different name.
