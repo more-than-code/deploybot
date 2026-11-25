@@ -2,7 +2,7 @@
 
 Let any AI agent that speaks MCP run your own servers, without handing it SSH keys or a cloud token. It can only deploy what your catalog allows, as you, after a confirm step. People use the same controls through a web console.
 
-Deploybot is a control plane for your own hosts: Raspberry Pis, mini PCs, VPSs and cloud VMs. A small agent on each host dials out to the Deploybot API, so hosts open no inbound ports and can sit behind NAT. Use the hosted service at [deploybot.dev](https://deploybot.dev/), or run it yourself from this source.
+Deploybot is a control plane for your own hosts: Raspberry Pis, mini PCs, VPSs and cloud VMs. A small agent on each host dials out to the Deploybot API, so hosts open no inbound ports and can sit behind NAT. When you want a service on a public HTTPS address, you turn on the edge for that host, and only then does it serve ports 80 and 443. Use the hosted service at [deploybot.dev](https://deploybot.dev/), or run it yourself from this source.
 
 <p align="center">
   <img src="docs/images/pitch-diagram.svg" width="960" alt="People use the web console and AI agents connect over MCP as you. Deploybot acts with your project role, runs only catalog entries, and asks for a confirm step. Your servers run bot-agent and dial out, so no ports are open and the agent never gets SSH keys or cloud tokens.">
@@ -13,8 +13,9 @@ Deploybot is a control plane for your own hosts: Raspberry Pis, mini PCs, VPSs a
 - **Acts as you.** An MCP client signs in as you and gets your role in each project, no more.
 - **Catalog only.** Only entries your project approved can run: container images and programs. There are no free-form commands, no shell and no file tools.
 - **Plan and confirm.** Every change made over MCP first returns a plan. Nothing happens until it is confirmed.
-- **Hosts dial out.** No open ports, and no SSH keys or cloud tokens for the agent.
-- **Host allowlist.** Each host keeps its own allowlist of images, projects and program commands, root-owned on the host, which the server cannot change.
+- **Hosts dial out.** No open ports for the control channel, and no SSH keys or cloud tokens for the agent.
+- **Host allowlist.** Each host keeps its own allowlist of images, projects and program commands, root-owned on the host. The server cannot change it, unless the host's owner lets organization owners and admins edit the edge, images and projects from the console.
+- **Privileged steps stay with people.** Host settings, registry and GitHub logins, secret values and files, host access and domains are yours to do. When an agent reaches one of them, it gets a console link to hand you, and you finish the step there.
 - **Secrets never pass through the AI.** When an agent needs a password, a token or a file, it asks for it, and you fill it in on a one-time page in the console. Secrets are encrypted at rest and write-only for people. Changes are recorded in an audit log.
 
 ## Three ways to let AI run your servers
@@ -24,18 +25,21 @@ Deploybot is a control plane for your own hosts: Raspberry Pis, mini PCs, VPSs a
 | What the AI can do | Any shell command | Anything the token allows | Only your catalog |
 | Safeguard | Approving each command | Hoping the agent behaves | Limited by design: acts as you, confirm step |
 | Ports and keys | SSH open, keys on a laptop | Long-lived token in a file | Hosts dial out, no keys for the AI |
-| When nobody is watching | Nothing runs | Nothing runs | Health checks; a failed deploy rolls back |
+| When nobody is watching | Nothing runs | Nothing runs | Health checks, a failed deploy rolls back, problems and alerts in the bell |
 | Best for | Debugging one box | Throwaway projects | Running production, teams |
 
 ## What else it does
 
-- **Deploys:** **health-gated deploys** (Docker health status or HTTP/TCP checks), **automatic rollback** to the previous container when a deploy is unhealthy, **digest rollback** to an earlier image in one step, a **health policy** per service, **run, stop and restart**, and **persistent programs** that run as systemd units and survive reboot.
-- **Configuration:** **env sets** shared across entries and **entry secrets** (typed or generated, shown once) for containers and programs; **managed files** and **registry logins** for containers; a **readiness check** before you deploy.
-- **Networking:** **shared networks** let containers from different projects on one host talk, when the host's administrator offers them.
-- **Visibility:** **host metrics** with history, **processes and services** on each host, **health history** per service, and **live logs** with secrets redacted and capped at 10 MB × 3 by default.
-- **Teams:** **organizations** that own the hosts (owner, admin and member roles), **project roles** (owner, admin, viewer), **per-entry rights** to run, stop, restart or deploy, **host access per project** at metrics or deploy level, **invite links** that expire, and one-time **join tokens** for adding hosts.
-- **For AI agents:** an **MCP server with OAuth**, **`deploybot login`** for machines without a browser, [llms.txt](https://deploybot.dev/llms.txt), and a **`whats_new`** tool.
-- **Upkeep:** a **What's new** page in the console, and an **agent update notice** when a host runs an older bot-agent.
+- **Deploys:** **health-gated deploys** (Docker health status or HTTP/TCP checks), **automatic rollback** to the previous container when a deploy is unhealthy, **digest rollback** to an earlier image in one step, a **health policy** per service, **run, stop and restart**, and **persistent programs** that run as systemd units and survive reboot. A **failed deploy says why**: the reason, the container's final status and the end of its log stay in the deploy history.
+- **Images:** an **image picker** that lists registry tags newest first, **new versions in one step** (move an entry to a new image tag without rewriting its spec, from the console or MCP), and **stale version cleanup** for ghcr.io, which keeps anything running, any rollback target and the last 5 deploys.
+- **Configuration:** **env sets** shared across entries and **entry secrets** (typed or generated, shown once, and **regenerated** when you need a new value) for containers and programs; **managed files** and **registry logins** for containers, with **GitHub logins that stay signed in**; a **readiness check** before you deploy.
+- **Networking:** **public addresses** on your own domain over HTTPS, served by a per-host edge with automatic certificates (verify a domain with a DNS TXT record, then assign the whole domain, a wildcard or a single name such as `api.example.com` to a project); **routes** with plan and confirm, client IPs from Cloudflare and no-store paths; **shared networks** let containers from different projects on one host talk, when the host's administrator offers them.
+- **Hosts:** **host config files** edited, versioned and applied from the console, each apply checked by the host's own command and put back if anything fails; **host settings from the console** when the host's owner allows it; **agent upgrades** from the console or MCP, signature-checked, with a fall back to the previous version if the new one does not come up; **rename** hosts and **remove** revoked ones.
+- **Visibility:** **host metrics** with history, **disk usage** per mount and what Docker uses and could reclaim, **processes and services** on each host, **health history** per service, and **live logs** with secrets redacted and capped at 10 MB × 3 by default.
+- **Problems and alerts:** a **notification bell** with problems that say what to do and resolve on their own: a host that stopped reporting, a refused registry login, a failed or rolled-back deploy, and **host resource alerts** for low memory or disk and a busy CPU, with thresholds per host. New problems that need action show on any open console page, and as **desktop notifications** if you turn them on.
+- **Teams:** **organizations** that own the hosts (owner, admin and member roles), created from the console, **project roles** (owner, admin, viewer), **per-entry rights** to run, stop, restart or deploy, **host access per project** at metrics or deploy level, **invite links** that expire, and one-time **join tokens** for adding hosts.
+- **For AI agents:** an **MCP server with OAuth**, **`deploybot login`** for machines without a browser, [llms.txt](https://deploybot.dev/llms.txt), and a **`whats_new`** tool. MCP results link to the console page they concern.
+- **Upkeep:** new releases in the bell, a **What's new** page in the console, and an **agent update notice** when a host runs an older bot-agent.
 
 ## Get started
 
